@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MY FIRST LUV WEBSITE</title>
+  <style>
+    :root{
+      --soft-pink:#fff1f6;
+      --accent-pink:#ff7fb3;
+      --deep-pink:#ff4d94;
+      --rose:#f9c2d1;
+      --glass: rgba(255,255,255,0.65);
+      --shadow: 0 10px 40px rgba(0,0,0,0.12);
+      --glow: 0 0 22px rgba(255,127,179,0.18);
+      font-family: "Poppins", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html,body{height:100%;margin:0;background: linear-gradient(180deg,#fff6fb 0%, #fff0f6 50%, #fff8fb 100%);color:#3a2230;}
+    .container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:36px;}
+    .card{width:980px;max-width:96%;border-radius:20px;background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,250,252,0.95));box-shadow:var(--shadow);padding:28px;position:relative;overflow:hidden;border:1px solid rgba(255,230,240,0.6);}
+
+    /* decorative hearts and soft background */
+    .big-heart{position:absolute;right:-60px;top:-40px;font-size:220px;color: rgba(255,127,179,0.06);transform:rotate(-14deg);pointer-events:none}
+    .rose-blob{position:absolute;left:-40px;bottom:-40px;width:260px;opacity:0.10;pointer-events:none}
+
+    .header{display:flex;gap:18px;align-items:center;margin-bottom:12px}
+    .logo{width:88px;height:88px;border-radius:18px;overflow:hidden;flex:0 0 88px;box-shadow:var(--glow);border:2px solid rgba(255,255,255,0.7);background:linear-gradient(135deg,var(--rose),var(--soft-pink));display:flex;align-items:center;justify-content:center;font-weight:800;color:#7b2140;font-size:16px;text-align:center}
+    h1{margin:0;font-size:22px;letter-spacing:1px;color:#651232;text-shadow:0 3px 18px rgba(255,127,179,0.06)}
+    .subtitle{margin:6px 0 0 0;color:#85435a;font-size:14px}
+
+    .content{display:grid;grid-template-columns:340px 1fr;gap:22px;margin-top:18px}
+
+    .photo-card{background: linear-gradient(180deg,#fff,#fff6fa);border-radius:14px;padding:12px;display:flex;flex-direction:column;align-items:center;box-shadow:0 8px 30px rgba(160,60,100,0.05);border:1px solid rgba(255,200,220,0.5)}
+    .photo-card img{width:100%;border-radius:12px;object-fit:cover;height:480px;display:block;border:6px solid rgba(255,255,255,0.6)}
+    .caption{margin-top:10px;font-size:13px;color:#7a2b48;text-align:center}
+
+    .panel{background: linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,243,247,0.88));border-radius:12px;padding:16px;box-shadow:var(--glow);border:1px solid rgba(255,200,220,0.4);min-height:480px;position:relative}
+    .greeting{font-size:18px;font-weight:700;margin:0 0 10px 0;color:#5a1732}
+    .letter{font-size:15px;line-height:1.6;color:#4a2230;background:linear-gradient(180deg, rgba(255,250,252,0.6), rgba(255,255,255,0.45));padding:14px;border-radius:10px;border:1px dashed rgba(255,140,180,0.18);box-shadow:inset 0 6px 12px rgba(255,255,255,0.4);margin-bottom:14px;white-space:pre-wrap}
+
+    .songs{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+    .song{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,200,220,0.35);background:linear-gradient(90deg, rgba(255,255,255,0.92), rgba(255,245,250,0.92))}
+    .song .label{font-weight:700;color:#4d1a33;font-size:14px}
+    .song .artist{font-size:13px;color:#7a3a55}
+
+    .affirm{margin-top:14px;font-size:13px;color:#6f2a45;display:flex;gap:10px;flex-wrap:wrap}
+    .chip{background:rgba(255,255,255,0.7);padding:8px 12px;border-radius:999px;border:1px solid rgba(250,200,220,0.42);box-shadow:0 6px 18px rgba(100,30,60,0.06);font-weight:700;color:#5d1830;font-size:13px}
+
+    .sign{margin-top:18px;font-weight:800;color:#6b1633;text-align:right;font-size:14px}
+
+    /* password overlay */
+    .overlay{position:fixed;inset:0;background:linear-gradient(180deg, rgba(10,10,10,0.46), rgba(10,10,10,0.52));display:flex;align-items:center;justify-content:center;z-index:9999}
+    .pass-box{background:linear-gradient(180deg,#fff8fb,#fff0f8);padding:26px;border-radius:14px;width:460px;box-shadow:0 12px 40px rgba(10,10,10,0.36);text-align:center;border:1px solid rgba(255,200,220,0.5)}
+    .pass-box h2{margin:0 0 8px 0;color:#6b1633}
+    .pass-box p{margin:0 0 14px 0;color:#7a3a55}
+    .pass-input{width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(200,120,150,0.2);font-size:16px;box-sizing:border-box;margin-bottom:12px}
+    .enter-btn{width:100%;padding:12px 14px;background:linear-gradient(90deg,var(--accent-pink),var(--deep-pink));color:white;font-weight:800;border:none;border-radius:10px;cursor:pointer;box-shadow:0 10px 28px rgba(255,67,137,0.14)}
+    .hint{font-size:13px;color:#8b475f;margin-top:10px}
+    .err{color:#8b2a3e;margin-top:10px;font-weight:700;display:none}
+
+    /* falling roses */
+    .roses-wrap{pointer-events:none;position:absolute;inset:0;overflow:hidden;z-index:2}
+    .rose{
+      position:absolute;
+      top:-120px;
+      width:36px;
+      height:36px;
+      background-repeat:no-repeat;
+      background-size:contain;
+      opacity:0.95;
+      transform:translate3d(0,0,0);
+      animation-name:fall, sway;
+      animation-iteration-count:infinite;
+      animation-timing-function:linear;
+      will-change:transform, opacity;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-140px) rotate(0deg); opacity:0; }
+      10% { opacity:0.9; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity:0.95; }
+    }
+    @keyframes sway {
+      0% { transform: translateX(0) rotate(0deg); }
+      50% { transform: translateX(24px) rotate(8deg); }
+      100% { transform: translateX(-6px) rotate(0deg); }
+    }
+
+    /* responsive */
+    @media (max-width:980px){
+      .content{grid-template-columns:1fr; }
+      .photo-card img{height:350px}
+    }
+  </style>
+</head>
+<body>
+  <!-- PASSWORD OVERLAY -->
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true">
+    <div class="pass-box" role="document" aria-label="Password required">
+      <h2>Welcome to "MY FIRST LUV"</h2>
+      <p>For Fhrinzes — enter the password to open this special space.</p>
+      <input class="pass-input" id="passwordInput" type="password" aria-label="Enter password" placeholder="Enter password" />
+      <button class="enter-btn" id="enterBtn">Open</button>
+      <div class="hint">Tip: the password is a 6-digit number.</div>
+      <div id="err" class="err" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="container" id="mainContent" aria-hidden="true" style="filter: blur(3px);">
+    <div class="card" role="main" aria-labelledby="title">
+      <div class="big-heart" aria-hidden="true">❤❤</div>
+      <svg class="rose-blob" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g transform="translate(0,0) scale(1.1)">
+          <path fill="#ffbfd3" d="M100 12c22 0 40 18 40 40 0 14-6 26-16 33 12 7 22 19 24 34 3 20-6 37-23 46-18 10-40 8-56-4-7 5-15 7-23 6-20-3-35-21-34-41 1-16 11-29 24-35C44 95 38 82 38 68c0-22 18-40 40-40z"/>
+        </g>
+      </svg>
+
+      <div class="header">
+        <div class="logo" aria-hidden="true">MY<br>FIRST<br>LUV</div>
+        <div>
+          <h1 id="title">For Fhrinzes — you're my beautiful dreams</h1>
+          <div class="subtitle">A small space I made — hearts, songs, and my words.</div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="photo-card" aria-label="photo of fhrinzes">
+          <!-- Put your uploaded image file in the same folder as this HTML -->
+          <img src="d9cd2671-461a-4dfd-a963-f9f59b683823.jpeg" alt="Fhrinzes" id="gfPhoto" />
+          <div class="caption">Fhrinzes — you are my beautiful dreams 🌹</div>
+        </div>
+
+        <div class="panel" aria-live="polite">
+          <div class="greeting">To my beautiful dreams, Fhrinzes —</div>
+
+          <div class="letter" id="letterText" role="article">
+Dear Fhrinzes, sana kahit ito man lang ma appreciate mo, pinaghirapan ko din po at sana wag mong deadmahin lang, give me a chance for closure, sorry na miss talaga kita. I am truly sorry for everything that hurt you — I hope this small space with songs and my words can show how much you still mean to me. You are beautiful, kind, brave, and incredibly important. I believe in you, I admire your heart, and I respect your space — but if there's any way we can find a little peace and understanding, please give me that chance. I miss us, and I hope this reaches your heart even a little. Sorry po nasaktan ka po ata sa biro ko, ang tindi na ng galit mo sa akin HAHAHHAHA, or baka kulang ka lang sa lambing HAHAHA jk.
+          </div>
+
+          <div class="songs" aria-label="Songs for you">
+            <div class="song"><div style="flex:1"><div class="label">Your Universe</div><div class="artist">Rico Blanco</div></div></div>
+            <div class="song"><div style="flex:1"><div class="label">Sa ngalan ng pag-ibig mo</div><div class="artist">December Avenue</div></div></div>
+            <div class="song"><div style="flex:1"><div class="label">14</div><div class="artist">Silent Sanctuary</div></div></div>
+            <div class="song"><div style="flex:1"><div class="label">Binibini</div><div class="artist">Zack Tabudlo</div></div></div>
+            <div class="song"><div style="flex:1"><div class="label">Pahintuloy</div><div class="artist">Shirebound</div></div></div>
+          </div>
+
+          <div class="affirm" aria-hidden="false">
+            <div class="chip">Sana kahit ito ma appreciate mo</div>
+            <div class="chip">Pinaghirapan ko ito</div>
+            <div class="chip">Give me a chance for closure</div>
+            <div class="chip">Sorry na, miss talaga kita</div>
+            <div class="chip">You are loved</div>
+            <div class="chip">You are my beautiful dream</div>
+          </div>
+
+          <div class="sign">— your greatest enemy</div>
+        </div>
+      </div>
+
+      <!-- falling roses container -->
+      <div class="roses-wrap" id="rosesWrap" aria-hidden="true"></div>
+    </div>
+  </div>
+
+<script>
+/*
+  Behavior:
+  - Password: 412023
+  - On successful unlock (button click or Enter), overlay hides, page unblurs, and ambient dreamy audio starts automatically (hidden).
+  - Falling roses animation created dynamically.
+  - Audio is generated via WebAudio (no external files). Browsers allow audio start because unlock is triggered by user's click.
+*/
+
+(function(){
+  const CORRECT = '412023';
+  const overlay = document.getElementById('overlay');
+  const main = document.getElementById('mainContent');
+  const input = document.getElementById('passwordInput');
+  const enterBtn = document.getElementById('enterBtn');
+  const err = document.getElementById('err');
+  const rosesWrap = document.getElementById('rosesWrap');
+
+  // unlock action
+  function unlock(){
+    const v = input.value.trim();
+    if(v === CORRECT){
+      overlay.style.display = 'none';
+      main.style.filter = 'none';
+      main.setAttribute('aria-hidden','false');
+      err.style.display = 'none';
+      startAmbient(); // start audio after user action (works with autoplay policies)
+      spawnRosesSlowly(); // spawn falling roses
+      // subtle celebration glow
+      document.querySelector('.card').style.boxShadow = '0 28px 80px rgba(255,127,179,0.12)';
+    } else {
+      err.style.display = 'block';
+      err.textContent = 'Password incorrect. Please try again.';
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  enterBtn.addEventListener('click', unlock);
+  input.addEventListener('keydown', function(e){ if(e.key === 'Enter') unlock(); });
+  input.focus();
+
+  // -----------------------------
+  // FALLING ROSES (slow, graceful)
+  // -----------------------------
+  // small embedded SVG rose icon as background image data URI
+  const roseSVG = encodeURIComponent(`
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
+      <g fill='none' fill-rule='evenodd'>
+        <circle cx='32' cy='32' r='30' fill='rgba(255,255,255,0.03)'/>
+        <path d='M32 10c6 0 10 5 10 11s-4 11-10 11-10-5-10-11 4-11 10-11z' fill='%23ff9fc1'/>
+        <path d='M20 36c0 8 10 14 12 14s12-6 12-14c0-6-10-6-12-6s-12 0-12 6z' fill='%23ff6fb0' opacity='0.95'/>
+        <path d='M26 20c2-3 6-4 10-2 3 2 4 6 2 10-4 6-10 2-12-2s-2-6 0-6z' fill='%23ffd7e6' opacity='0.9'/>
+      </g>
+    </svg>`);
+
+  function createRoseElement(index){
+    const el = document.createElement('div');
+    el.className = 'rose';
+    el.style.left = (Math.random()*100) + 'vw';
+    const size = 28 + Math.random()*36; // varying sizes
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    el.style.backgroundImage = `url("data:image/svg+xml;utf8,${roseSVG}")`;
+    // animation duration: slower for larger petals
+    const fallDuration = 14 + Math.random()*14; // seconds
+    const delay = Math.random()*6; // stagger
+    el.style.animationDuration = `${fallDuration}s, ${3 + Math.random()*3}s`;
+    el.style.animationDelay = `${delay}s, ${delay}s`;
+    el.style.opacity = 0.95 * (0.7 + Math.random()*0.3);
+    return el;
+  }
+
+  function spawnRosesSlowly(){
+    // spawn a number of roses over time for gentle effect
+    const total = 18;
+    let spawned = 0;
+    const interval = setInterval(() => {
+      const r = createRoseElement(spawned);
+      rosesWrap.appendChild(r);
+      spawned++;
+      if(spawned >= total){ clearInterval(interval); }
+      // remove roses after 30s to keep DOM clean
+      setTimeout(()=>{ if(r.parentNode) r.parentNode.removeChild(r); }, 34000);
+    }, 700);
+  }
+
+  // ------------------------------------
+  // AMBIENT DREAMY AUDIO (WebAudio API)
+  // ------------------------------------
+  let audioStarted = false;
+  function startAmbient(){
+    if(audioStarted) return;
+    audioStarted = true;
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      const ctx = new AudioContext();
+
+      // master gain
+      const master = ctx.createGain();
+      master.gain.value = 0.28; // overall level
+      master.connect(ctx.destination);
+
+      // low gentle drifting oscillators (two detuned)
+      function createDrift(freq){
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        const g = ctx.createGain();
+        g.gain.value = 0.025; // subtle
+        osc.connect(g);
+        g.connect(master);
+        osc.start();
+        return {osc,g};
+      }
+
+      const drift1 = createDrift(40 + Math.random()*8); // low hum
+      const drift2 = createDrift(48 + Math.random()*8); // slightly detuned
+
+      // light harmonic shimmer (higher partial, pulsating)
+      const shimmerOsc = ctx.createOscillator();
+      shimmerOsc.type = 'sine';
+      shimmerOsc.frequency.value = 220; // high partial
+      const shimmerGain = ctx.createGain();
+      shimmerGain.gain.value = 0.0025;
+      shimmerOsc.connect(shimmerGain);
+      shimmerGain.connect(master);
+      shimmerOsc.start();
+
+      // pink-ish noise (soft texture)
+      const bufferSize = ctx.sampleRate * 2.0; // 2 seconds
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      // fill with random and low-pass by simple decay to bias toward low freq (soft noise)
+      let last = 0;
+      for(let i=0;i<bufferSize;i++){
+        const white = (Math.random() * 2 - 1) * 0.5;
+        last = (last + white) * 0.98;
+        data[i] = last;
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+      noise.loop = true;
+      const noiseGain = ctx.createGain();
+      noiseGain.gain.value = 0.12;
+      const noiseFilter = ctx.createBiquadFilter();
+      noiseFilter.type = 'lowpass';
+      noiseFilter.frequency.value = 800; // reduce high hiss
+      noise.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(master);
+      noise.start();
+
+      // slow LFO to modulate drift gains for a breathing effect
+      const lfo = ctx.createOscillator();
+      lfo.type = 'sine';
+      lfo.frequency.value = 0.05 + Math.random()*0.05; // 0.03 - 0.1 Hz
+      const lfoGain = ctx.createGain();
+      lfoGain.gain.value = 0.02;
+      lfo.connect(lfoGain);
+      lfoGain.connect(drift1.gain);
+      lfoGain.connect(drift2.gain);
+      lfoGain.connect(shimmerGain);
+      lfo.start();
+
+      // gentle stereo spread via delay-based panning simulation (simple)
+      const leftPan = ctx.createStereoPanner();
+      leftPan.pan.value = -0.25;
+      const rightPan = ctx.createStereoPanner();
+      rightPan.pan.value = 0.25;
+
+      master.disconnect();
+      master.connect(leftPan);
+      master.connect(rightPan);
+      leftPan.connect(ctx.destination);
+      rightPan.connect(ctx.destination);
+
+      // subtle pan LFO
+      const panLFO = ctx.createOscillator();
+      panLFO.type = 'sine';
+      panLFO.frequency.value = 0.02;
+      const panGain = ctx.createGain();
+      panGain.gain.value = 0.2;
+      panLFO.connect(panGain);
+      try {
+        panGain.connect(leftPan.pan);
+        panGain.connect(rightPan.pan);
+      } catch(e){}
+      panLFO.start();
+
+      // gentle fade-in to avoid click (short ramp)
+      master.gain.setValueAtTime(0.0001, ctx.currentTime);
+      master.gain.exponentialRampToValueAtTime(0.28, ctx.currentTime + 0.08);
+
+      if(ctx.state === 'suspended'){
+        ctx.resume();
+      }
+
+      window.__myFirstLuvAudioContext = ctx;
+
+    } catch(err){
+      console.warn('Audio failed to start:', err);
+    }
+  }
+
+})();
+</script>
+</body>
+</html>
